@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>APConnct</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -16,11 +14,11 @@
   background-color: #272822;
 }
 .highlight .err {
-  color: #151515;
-  background-color: #ac4142;
+  color: #272822;
+  background-color: #f92672;
 }
 .highlight .c, .highlight .cd, .highlight .cm, .highlight .c1, .highlight .cs {
-  color: #505050;
+  color: #75715e;
 }
 .highlight .cp {
   color: #f4bf75;
@@ -29,45 +27,45 @@
   color: #f4bf75;
 }
 .highlight .o, .highlight .ow {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .p, .highlight .pi {
-  color: #d0d0d0;
+  color: #f8f8f2;
 }
 .highlight .gi {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .gd {
-  color: #ac4142;
+  color: #f92672;
 }
 .highlight .gh {
-  color: #6a9fb5;
-  background-color: #151515;
+  color: #66d9ef;
+  background-color: #272822;
   font-weight: bold;
 }
 .highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
-  color: #aa759f;
+  color: #ae81ff;
 }
 .highlight .kc {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kt {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .kd {
-  color: #d28445;
+  color: #fd971f;
 }
 .highlight .s, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .sr {
-  color: #75b5aa;
+  color: #a1efe4;
 }
 .highlight .si {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .se {
-  color: #8f5536;
+  color: #cc6633;
 }
 .highlight .nn {
   color: #f4bf75;
@@ -79,31 +77,31 @@
   color: #f4bf75;
 }
 .highlight .na {
-  color: #6a9fb5;
+  color: #66d9ef;
 }
 .highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mb, .highlight .mx {
-  color: #90a959;
+  color: #a6e22e;
 }
 .highlight .ss {
-  color: #90a959;
+  color: #a6e22e;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="images/navbar.png" />
+        <img src="images/navbar.png" alt="Navbar" />
       </span>
     </a>
     <div class="tocify-wrapper">
-      <img src="images/logo.png" />
+      <img src="images/logo.png" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -112,8 +110,8 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a><br><br></li>
+            <li>Report Problems or questions to <br> <a href="mailto:jhinkel@coca-cola.com">jhinkel@coca-cola.com</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -121,149 +119,678 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>This api allows you to see data about an ad account, ads within that ad account, and posts those ads promote, all in one database.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Data is obtained via and HTTP request using the CURL command. You can view code examples in the dark area to the right.</p>
 
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<p>All data is returned as a JSON string.</p>
 
-<h1 id="authentication">Authentication</h1>
-
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h1 id="formatting">Formatting</h1>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
 </blockquote>
+<pre class="highlight shell"><code><span class="c">#With CURL, make a call to the following URL</span>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+curl <span class="s2">"https://www.kosocialconnections.com/AdTracker
+/apiDbGet.php?endpoint=ENDPOINT_HERE&amp;params=PARAM1,PARAM2
+&amp;email=EMAIL_HERE"</span>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<span class="c">#PARAM1 and PARAM2 might or might not be used. If </span>
+<span class="c">#an endpoint has no parameters, do not use the </span>
+<span class="c">#"&amp;params=PARAM1,PARAM2" section.</span>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<span class="c">#also, the accountExists endpoint requires no</span>
+<span class="c">#email authentication!  When calling this</span>
+<span class="c">#endpoint, you do not have to add</span>
+<span class="c">#"&amp;email=EMAIL_HERE"</span>
+
+</code></pre>
+<p>With the exception of the accountExists endpoint, </p>
+
+<p>APConnect uses email authentication to allow access to the API. You can fill out our form (FORM LINK HERE) to request that your email be added to the whitelist.</p>
+
+<p>APConnect expects for the email address to be included in all API requests to the server with an email parameter appended to the end of the CURL command as follows:</p>
+
+<p><code class="prettyprint">&amp;email=EMAIL_HERE</code></p>
+
+<p>when calling the accountExists endpoint, omit the
+<code class="prettyprint">&amp;email=EMAIL_HERE</code> part of the CURL command.</p>
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>EMAIL_HERE</code> with the email address you used to register for API access, unless you are calling the accountExists endpoint.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
+<h1 id="endpoints">Endpoints</h1>
 
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<h2 id="accountexists">accountExists</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for accountExists is as follows:</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
+curl <span class="s2">"http://kosocialconnections.com/adTracker/
+apiDbGet.php?endpoint=accountExists&amp;params=PARAM1"</span>
+
+<span class="c">#PARAM1 is replaced with the desired ad account id</span>
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
+<p>This endpoint indicates whether the desired add account is in the database.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=accountExists&amp;params=PARAM1</code></p>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>PARAM1</td>
+<td>A Facebook Ad Account ID</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>email</td>
+<td>The email address you used to register for API access</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+<h3 id="datapoints-returned">Datapoints Returned</h3>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exists_in_db</td>
+<td>false or true</td>
+</tr>
+</tbody></table>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<h2 id="adaccountdataall">adAccountDataAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for adAccountDataAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=adAccountDataAll"</span>
+
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>This endpoint returns all data about all add accounts in the database.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=adAccountDataAll</code></p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_actions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>spend</td>
+<td>number</td>
+</tr>
+<tr>
+<td>clicks</td>
+<td>number</td>
+</tr>
+<tr>
+<td>reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>frequency</td>
+<td>number (the average number of times each person saw ads in an ad account)</td>
+</tr>
+<tr>
+<td>cpm</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event.fb_mobile_activate_app</td>
+<td>number</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>number</td>
+</tr>
+<tr>
+<td>like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>link_click</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mention</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mobile_app_install</td>
+<td>number</td>
+</tr>
+<tr>
+<td>photo_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>unlike</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_play</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>page_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event</td>
+<td>number</td>
+</tr>
+<tr>
+<td>dateStart</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>dateEnd</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>objective</td>
+<td>ad campaign objective</td>
+</tr>
+</tbody></table>
+
+<h2 id="agebreakdownall">ageBreakdownAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for ageBreakdownAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=ageBreakdownAll"</span>
+
+</code></pre>
+<p>This endpoint returns insights about the different add accounts in the database (grouped by age range).</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=ageBreakdownAll</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>age</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_stop</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="countrybreakdownall">countryBreakdownAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for countryBreakdownAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=countryBreakdownAll"</span>
+
+</code></pre>
+<p>This endpoint returns insights about the different ad accounts in the database (grouped by country)</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=countryBreakdownAll</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>country_code</td>
+<td>2-character country code</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_stop</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="genderbreakdownall">genderBreakdownAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for genderBreakdownAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=genderBreakdownAll"</span>
+
+</code></pre>
+<p>This endpoint returns insights about the different ad accounts in the database (grouped by gender)</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=countryBreakdownAll</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>country_code</td>
+<td>2-character country code</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_stop</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="postdataall">postDataAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for postDataAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=postDataAll"</span>
+
+</code></pre>
+<p>This endpoint returns insights about all posts that are linked with all ad accounts in the database.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=postDataAll</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Organic_Impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Paid_Impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Engaged_Users</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Consumptions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Negative_Feedback</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Impressions_By_Likes</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Paid_Impressions_By_Likes</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>post text</td>
+</tr>
+<tr>
+<td>Created_Time</td>
+<td>date (YYYY-MM-DDTHH:MM:SS.ssss)</td>
+</tr>
+<tr>
+<td>Total_Comments</td>
+<td>number</td>
+</tr>
+<tr>
+<td>shares</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Organic_Reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Paid_Reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Reach_By_Like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Paid_Reach_By_like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Consumers</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Negative_Feedback_Users</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="urldataall">urlDataAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for urlDataAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=urlDataAll"</span>
+
+</code></pre>
+<p>This endpoint returns a post id, the ad account id for that post, and the permalink for that post (for all posts)</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=urlDataAll</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>adAccountId</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>permalink</td>
+<td>URL</td>
+</tr>
+</tbody></table>
+
+<h2 id="addataall">adDataAll</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for adDataAll is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=adDataAll"</span>
+
+</code></pre>
+<p>This endpoint returns all data about all ads within all ad accounts in the database.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=adDataAll</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<p>There are no parameters for this endpoint</p>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>ad_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>totalActions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>spend</td>
+<td>number</td>
+</tr>
+<tr>
+<td>clicks</td>
+<td>number</td>
+</tr>
+<tr>
+<td>reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>frequency</td>
+<td>number (the average number of times each person saw an ad)</td>
+</tr>
+<tr>
+<td>cpm</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event.fb_mobile_activate_app</td>
+<td>number</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>number</td>
+</tr>
+<tr>
+<td>like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>link_click</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mention</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mobile_app_install</td>
+<td>number</td>
+</tr>
+<tr>
+<td>photo_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>unlike</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_play</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>page_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event</td>
+<td>number</td>
+</tr>
+<tr>
+<td>dateStart</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>dateEnd</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>objective</td>
+<td>ad campaign objective</td>
+</tr>
+<tr>
+<td>video_avg_percent_watched</td>
+<td>number</td>
+</tr>
+<tr>
+<td>clicksAllRate</td>
+<td>number</td>
+</tr>
+<tr>
+<td>resultRate</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="insightbyaccount">InsightByAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for InsightByAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=InsightByAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns all data about a specified ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=InsightByAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
@@ -272,66 +799,3123 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_actions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>spend</td>
+<td>number</td>
+</tr>
+<tr>
+<td>clicks</td>
+<td>number</td>
+</tr>
+<tr>
+<td>reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>frequency</td>
+<td>number (the average number of times each person saw ads in an ad account)</td>
+</tr>
+<tr>
+<td>cpm</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event.fb_mobile_activate_app</td>
+<td>number</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>number</td>
+</tr>
+<tr>
+<td>like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>link_click</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mention</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mobile_app_install</td>
+<td>number</td>
+</tr>
+<tr>
+<td>photo_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>unlike</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_play</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>page_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event</td>
+<td>number</td>
+</tr>
+<tr>
+<td>dateStart</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>dateEnd</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>objective</td>
+<td>ad campaign objective</td>
+</tr>
+</tbody></table>
+
+<h2 id="totalactionsaccount">totalActionsAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for totalActionsAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=totalActionsAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the total actions taken on a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=totalActionsAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total_actions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="spendaccount">spendAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for spendAccount is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=spendAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the overall spend for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=spendAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>spend</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="clicksaccount">clicksAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for clicksAccount is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=clicksAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the overall click count for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=clicksAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clicks</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="reachaccount">reachAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for reachAccount is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=reachAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the overall reach for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=reachAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>reach</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="frequencyaccount">frequencyAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for frequencyAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=frequencyAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the frequency (the average number of times each person saw the ads in this account) for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=frequencyAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>frequency</td>
+<td>number (the average number of times each person saw ads in an ad account)</td>
+</tr>
+</tbody></table>
+
+<h2 id="cpmaccount">cpmAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for cpmAccount is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=cpmAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the cpm (average cost per 1000 impressions) for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=cpmAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cpm</td>
+<td>number (the average cost per 1000 impressions)</td>
+</tr>
+</tbody></table>
+
+<h2 id="actionsaccount">actionsAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for actionsAccount is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=actionsAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns a summary of all the actions taken as a result of seeing the ads in a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=actionsAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>app_custom_event.fb_mobile_activate_app</td>
+<td>number</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>number</td>
+</tr>
+<tr>
+<td>like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>link_click</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mention</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mobile_app_install</td>
+<td>number</td>
+</tr>
+<tr>
+<td>photo_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>unlike</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_play</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>page_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="startdateaccount">startDateAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for startDateAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=startDateAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the start date for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=startDateAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>startDate</td>
+<td>date(YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="enddateaccount">endDateAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for endDateAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=endDateAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the end date for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=endDateAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>endDate</td>
+<td>date(YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="objectiveaccount">objectiveAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for objectiveAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=objectiveAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns the objective for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=objectiveAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>objective</td>
+<td>ad campaign objective</td>
+</tr>
+</tbody></table>
+
+<h2 id="agestatsbyaccount">ageStatsByAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for ageStatsByAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=ageStatsByAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns all the age stats for all the age groups in a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=ageStatsByAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_stop</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="agebyaccount">ageByAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for ageByAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=ageByAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+</code></pre>
+<p>This endpoint returns a collection of all the age ranges represented for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=ageByAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>ages</td>
+<td>an array of the different age groups</td>
+</tr>
+</tbody></table>
+
+<h2 id="statsbyageandaccount">StatsByAgeAndAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for StatsByAgeAndAccount is </span>
+<span class="c">#as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=StatsByAgeAndAccount
+&amp;params=AD_ACCOUNT_ID_HERE,AGE_RANGE_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+
+<span class="c">#AGE_RANGE_HERE will be replaced by an age group</span>
+<span class="c">#from the ageByAccount endpoint.</span>
+</code></pre>
+<p>This endpoint returns impressions for a specific age group within a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=StatsByAgeAndAccount&amp;params=AD_ACCOUNT_ID_HERE,AGE_RANGE_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id and <code>AGE_RANGE_HERE</code> with the desired age range from the ageByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>The id of the desired ad account</td>
+</tr>
+<tr>
+<td>age_range</td>
+<td>an age range from the ageByAccount endpoint.</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_end</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="countrystats">countryStats</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for countryStats is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=countryStats
+&amp;params=COUNTRY_CODE_HERE"</span>
+
+<span class="c">#COUNTRY_CODE_HERE will be replaced by the</span>
+<span class="c">#desired 2-character country code</span>
+
+</code></pre>
+<p>This endpoint returns insights about a specified country.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=countryStats&amp;params=COUNTRY_CODE_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>COUNTRY_CODE_HERE</code> with the desired 2-character country code.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>country_code</td>
+<td>2-character country code</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_end</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="countrystatsbyadaccount">countryStatsByAdAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for countryStatsByAdAccount</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=countryStatsByAdAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#Ad_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+
+</code></pre>
+<p>This endpoint returns impressions for a country using a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=countryStatsByAdAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>the id of the desired account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>country_code</td>
+<td>2-character country code</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_end</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="genderstatsbyadaccount">genderStatsByAdAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for genderStatsByAdAccount</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=genderStatsByAdAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#Ad_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired Ad Account</span>
+
+</code></pre>
+<p>This endpoint returns impressions by gender for a specific ad account.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=genderStatsByAdAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCOUNT_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>the id of the desired account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gender</td>
+<td>female, male, or unknown</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_end</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="genderstatsbygender">genderStatsByGender</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for genderStatsByGender</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=genderStatsByGender
+&amp;params=GENDER_HERE"</span>
+
+<span class="c">#GENDER_HERE will be replaced by either </span>
+<span class="c">#"male", "female", or "unknown" (without quotes)</span>
+
+</code></pre>
+<p>This endpoint returns impressions for a specific gender across all add accounts in the database</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=genderStatsByGender&amp;params=GENDER_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>GENDER_HERE</code> with the desired gender (either male, female, or unknown).
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>gender</td>
+<td>male, female, or unknown</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>date_start</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+<tr>
+<td>date_end</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="urldatabyaccount">URLDataByAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for URLDataByAccount</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=URLDataByAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired ad account</span>
+
+</code></pre>
+<p>This endpoint returns a list of URLS for a specific post id within the specific ad account</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=URLDataByAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>the id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>permalink</td>
+<td>URL</td>
+</tr>
+</tbody></table>
+
+<h2 id="postidsbyaccount">PostIdsByAccount</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostIdsByAccount</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostIdsByAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired ad account</span>
+
+</code></pre>
+<p>This endpoint returns a list of all the post ids for a specific ad account</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostIdsByAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>AD_ACCCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>account_id</td>
+<td>the id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>list of post ids</td>
+</tr>
+</tbody></table>
+
+<h2 id="postidurl">PostIdURL</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostIdURL</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostIdURL
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the URL for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostIdsByAccount&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>URL</td>
+<td>URL of the post</td>
+</tr>
+</tbody></table>
+
+<h2 id="databypost">dataByPost</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for dataByPost</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=dataByPost
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns all the insights for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=dataByPost&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Organic_Impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>total_Paid_Impressions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Engaged_Users</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Consumptions</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Negative_Feedback</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Impressions_By_Likes</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Paid_Impressions_By_Likes</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>post text</td>
+</tr>
+<tr>
+<td>Created_Time</td>
+<td>date (MM-DD-YYYYTHHMMSS.ssss)</td>
+</tr>
+<tr>
+<td>Total_Comments</td>
+<td>number</td>
+</tr>
+<tr>
+<td>shares</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Total_Reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Organic_Reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Paid_Reach</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Reach_By_Like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Consumers</td>
+<td>number</td>
+</tr>
+<tr>
+<td>Negative_Feedback_Users</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="posttotalimpressions">PostTotalImpressions</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostTotalImpressions</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostTotalImpressions
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the total impressions for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostTotalImpressions&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total_Impressions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="posttotalorganicimpressions">PostTotalOrganicImpressions</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostTotalOrganicImpressions</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostTotalOrganicImpressions
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the total organic impressions for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostTotalOrganicImpressions&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total_Organic_Impressions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="posttotalpaidimpressions">PostTotalPaidImpressions</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostTotalPaidImpressions</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostTotalPaidImpressions
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the total paid impressions for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostTotalPaidImpressions&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total_Paid_Impressions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postengagedusers">PostEngagedUsers</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostEngagedUsers</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostEngagedUsers
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the Engaged User count for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=EngagedUsers&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Engaged_Users</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postconsumptions">PostConsumptions</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostConsumptions</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostConsumptions
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the consumptions for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostConsumptions&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Consumptions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postimpressionsbylikes">PostImpressionsByLikes</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostImpressionsByLikes</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostImpressionsByLikes
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the paid impressions by likes for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostImpressionsByLikes&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PostImpressionsByLikes</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="posttext">PostText</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostText is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostText
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the text that was used in the post for a specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostText&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Post_Text</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="posttotalcomments">PostTotalComments</h2>
+<pre class="highlight shell"><code><span class="c">#The CURL command for PostTotalComments</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adTracker
+/apiDbGet.php?endpoint=PostTotalComments
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the total comment count for the specified post id</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET http://kosocialconnections.com/adTracker/apiDbGet.php?endpoint=PostTotalComments&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ You must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">Datapoints Returned</h3>
+
+<table><thead>
+<tr>
+<th>Datapoint</th>
+<th>Return Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Total_Comments</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postcreatedtime">PostCreatedTime</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostCreatedTime</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=postcreatedtime
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the created time for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostCreatedTime&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>created_time</td>
+<td>date (yyyy-mm-ddthh:mm:ss.ssss)</td>
+</tr>
+</tbody></table>
+
+<h2 id="postsharecount">PostShareCount</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostShareCount</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostShareCount
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the share count for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostShareCount&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>shares</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="posttotalreach">PostTotalReach</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostTotalReach</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostTotalReach
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the total reach for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostTotalReach&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Total_Reach</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postpaidreach">PostPaidReach</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostPaidReach</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostPaidReach
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the paid reach for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostPaidReach&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Paid_Reach</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postreachbylike">PostReachByLike</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostReachByLike</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostReachByLike
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the reach by like for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostReachByLike&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Reach_By_Like</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postpaidreachbylike">PostPaidReachByLike</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostPaidReachByLike</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostPaidReachByLike
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the paid reach by like for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostPaidReachByLike&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Paid_Reach_By_Like</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postconsumers">PostConsumers</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostConsumers</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostConsumers
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the consumer count for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostConsumers&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Consumers</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="postnegativefeedbackusers">PostNegativeFeedbackUsers</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostNegativeFeedbackUsers</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=PostNegativeFeedbackUsers
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#id of the desired post as obtained by</span>
+<span class="c">#the PostIdsByAccount endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the negative feedback user count for the specified post id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostNegativeFeedbackUsers&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id as obtained by the PostIdsByAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the post from the PostIdsByAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Negative_Feedback_Users</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="adidsfromaccount">adIdsFromAccount</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for adIdsFromAccount</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=adIdsFromAccount
+&amp;params=AD_ACCOUNT_ID_HERE"</span>
+
+<span class="c">#AD_ACCOUNT_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad account id</span>
+
+</code></pre>
+<p>this endpoint returns a list of all ad ids associated with the specified ad account id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=adIdsFromAccount&amp;params=AD_ACCOUNT_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ACCOUNT_ID_HERE</code> with the desired ad account id.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_account_id</td>
+<td>the id of the desired ad account</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad id list</td>
+<td>list of numbers</td>
+</tr>
+</tbody></table>
+
+<h2 id="totalactionsad">totalActionsAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for totalActionsAd</span>
+<span class="c">#is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=totalActionsAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the total actions count for the specified ad account id</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=totalActionsAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>totalActions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="spendad">spendAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for spendAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=spendAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount</span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the spend for the specified ad</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=spendAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>spend</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="clicksad">clicksAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for clicksAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=clicksAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the click count for the specified ad</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=clicksAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clicks</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="reachad">reachAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for reachAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=reachAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the reach for the specified ad</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=reachAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>reach</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="frequencyad">frequencyAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for frequencyAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=frequencyAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the frequency (the average number of times each person saw an ad) for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=frequencyAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>frequency</td>
+<td>number (the average number of times each person saw an ad)</td>
+</tr>
+</tbody></table>
+
+<h2 id="cpmad">cpmAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for cpmAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=cpmAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the cpm for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=cpmAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cpm</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="actionsad">actionsAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for cpmAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=actionsAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns a summary of all the actions taken as a result of seeing a specified ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=actionsAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>app_custom_event.fb_mobile_activate_app</td>
+<td>number</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>number</td>
+</tr>
+<tr>
+<td>like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>link_click</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mention</td>
+<td>number</td>
+</tr>
+<tr>
+<td>mobile_app_install</td>
+<td>number</td>
+</tr>
+<tr>
+<td>photo_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post</td>
+<td>number</td>
+</tr>
+<tr>
+<td>post_like</td>
+<td>number</td>
+</tr>
+<tr>
+<td>unlike</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_play</td>
+<td>number</td>
+</tr>
+<tr>
+<td>video_view</td>
+<td>number</td>
+</tr>
+<tr>
+<td>page_engagement</td>
+<td>number</td>
+</tr>
+<tr>
+<td>app_custom_event</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="startdatead">startDateAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for startDateAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=startDateAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the start date for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=startDateAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_start_date</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="enddatead">endDateAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for endDateAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=endDateAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the end date for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=endDateAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_end_date</td>
+<td>date (YYYY-MM-DD)</td>
+</tr>
+</tbody></table>
+
+<h2 id="objectivead">objectiveAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for objectiveAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=objectiveAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the objective for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=objectiveAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>objective</td>
+<td>ad objective</td>
+</tr>
+</tbody></table>
+
+<h2 id="postidad">PostIdAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for PostIdAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=postIdAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the post id associated with a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=PostIdAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>ad objective</td>
+</tr>
+</tbody></table>
+
+<h2 id="videoavgpercentwatchedad">VideoAvgPercentWatchedAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for VideoAvgPercentWatchedAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=VideoAvgPercentWatchedAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the average percentage of a video that people watched for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=VideoAvgPercentWatchedAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>video_avg_percent_watched</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="impressionsad">ImpressionsAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for ImpressionsAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=ImpressionsAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>this endpoint returns the impressions for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=impressionsAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>impressions</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="clicksallad">clicksAllAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for clicksAllAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=clicksAllAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the clicks all rate (clicks/impressions) for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=clicksAllAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>clicksAllRate</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="resultratead">resultRateAd</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for resultRateAd is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=resultRateAd
+&amp;params=AD_ID_HERE"</span>
+
+<span class="c">#AD_ID_HERE will be replaced by the</span>
+<span class="c">#desired ad id from the adIdsFromAccount </span>
+<span class="c">#endpoint</span>
+
+</code></pre>
+<p>This endpoint returns the result rate (estimated ad recall rate/impressions) for a specific ad.</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=resultRateAd&amp;params=AD_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>AD_ID_HERE</code> with the desired ad id from the adIdsFromAccount endpoint.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ad_id</td>
+<td>the id of the desired ad from the adIdsFromAccount endpoint</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>resultRate</td>
+<td>number</td>
+</tr>
+</tbody></table>
+
+<h2 id="spendbypostid">spendByPostId</h2>
+<pre class="highlight shell"><code><span class="c">#the curl command for spendByPostId is as follows:</span>
+
+curl <span class="s2">"http://kosocialconnections.com/adtracker
+/apidbget.php?endpoint=spendByPostId
+&amp;params=POST_ID_HERE"</span>
+
+<span class="c">#POST_ID_HERE will be replaced by the</span>
+<span class="c">#desired post id</span>
+
+</code></pre>
+<p>This endpoint returns the sum of the spend for all ads on a particular post</p>
+
+<h3 id="http-request">http request</h3>
+
+<p><code class="prettyprint">get http://kosocialconnections.com/adtracker/apidbget.php?endpoint=spendByPostId&amp;params=POST_ID_HERE</code></p>
+
+<aside class="notice">
+ you must replace <code>POST_ID_HERE</code> with the desired post id.
+</aside>
+
+<h3 id="query-parameters">query parameters</h3>
+
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>post_id</td>
+<td>the id of the desired post</td>
+</tr>
+</tbody></table>
+
+<h3 id="datapoints-returned">datapoints returned</h3>
+
+<table><thead>
+<tr>
+<th>datapoint</th>
+<th>return value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>spend</td>
+<td>number</td>
 </tr>
 </tbody></table>
 
           <h1 id="errors">Errors</h1>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>APConnect can produce the following errors:</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Error</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>No values returned</td>
+<td>endpoint does not exist.  Try checking spelling and/or capitalization</td>
 </tr>
 <tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
+<td>type1</td>
+<td>&ldquo;Please specify an endpoint to query&rdquo; - endpoint was not included in the CURL command.</td>
 </tr>
 <tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>type2</td>
+<td>&ldquo;Please specify an account to lookup&rdquo; - a parameter (ad account id) was not specified</td>
 </tr>
 <tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>type3</td>
+<td>&ldquo;Please specify both account id and Age&rdquo; - a parameter was not specified.</td>
 </tr>
 <tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>type4</td>
+<td>&ldquo;Please specify a country code to lookup&rdquo; - country code was not specified for an endpoint that required it.</td>
 </tr>
 <tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+<td>type5</td>
+<td>&ldquo;Please specify a gender to lookup (either male, female, or unknown).&rdquo; - a gender was not specified for an endpoint that required it.</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+<td>type6</td>
+<td>&ldquo;Please specify a post id to lookup&rdquo; - a parameter (post id) was not specified</td>
 </tr>
 <tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td>type7</td>
+<td>&ldquo;Please specify an ad id to lookup (ad ids can be obtained from the &lsquo;adIdsFromAccount&rsquo; endpoint.&rdquo; - a parameter (ad id) was not specified.</td>
 </tr>
 </tbody></table>
 
@@ -339,8 +3923,6 @@ Remember — a happy kitten is an authenticated kitten!
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
